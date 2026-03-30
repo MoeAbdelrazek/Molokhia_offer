@@ -1,58 +1,782 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>عرض خدمات مطعم ملوخية</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --page-w:210mm; --page-h:297mm; --page-x:10mm; --page-y:10mm;
-  --bg1:#04101b; --bg2:#071626; --bg3:#030811;
-  --gold:#d7b463; --gold-soft:#ebd6a0; --line:rgba(215,180,99,.12);
-  --text:#f4ecdf; --soft:rgba(255,255,255,.02);
-}
-@page{size:A4;margin:0}
-*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-html,body{margin:0;padding:0;background:#08111d;color:var(--text);font-family:"Tajawal","Cairo","Segoe UI",Arial,sans-serif;overflow-x:hidden}
-body{width:100%}
-.page{width:var(--page-w);min-width:var(--page-w);max-width:var(--page-w);height:var(--page-h);margin:0 auto;padding:var(--page-y) var(--page-x);overflow:hidden;break-after:page;page-break-after:always;background:radial-gradient(circle at top right, rgba(215,180,99,.10), transparent 24%),radial-gradient(circle at bottom left, rgba(39,94,69,.13), transparent 26%),linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 44%, var(--bg3) 100%)}
-.page:last-child{break-after:auto;page-break-after:auto}
-.shell{width:100%;height:calc(var(--page-h) - (var(--page-y) * 2));overflow:hidden;border:1px solid var(--line);border-radius:20px;padding:10px 12px 11px;background:linear-gradient(90deg, rgba(215,180,99,.03) 0%, rgba(6,22,38,.10) 18%, rgba(6,22,38,.02) 58%, rgba(215,180,99,.025) 100%);box-shadow:inset 0 0 40px rgba(215,180,99,.02)}
-.top-line{height:3px;border-radius:999px;background:linear-gradient(90deg,#735624 0%,var(--gold) 50%,#735624 100%);margin-bottom:8px}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 0 8px;border-bottom:1px solid rgba(215,180,99,.08);margin-bottom:9px}
-.brand{display:flex;align-items:center;gap:10px;color:var(--gold-soft);font-family:"Cairo","Segoe UI",Arial,sans-serif;font-size:15px;font-weight:700;line-height:1}
-.logo{width:38px;height:38px;border-radius:50%;border:1px solid rgba(215,180,99,.23);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:14px;font-weight:800;background:rgba(255,255,255,.02);box-shadow:inset 0 0 18px rgba(215,180,99,.04);flex:0 0 auto;font-family:"Segoe UI",Arial,sans-serif}
-.pill,.card-pill{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(215,180,99,.14);background:var(--soft);color:var(--gold-soft);font-weight:700;line-height:1;white-space:nowrap}
-.pill{padding:7px 12px;font-size:10.7px}
-.card-pill{padding:6px 9px;font-size:9.8px;margin-bottom:7px;color:var(--gold)}
-.hero{text-align:center;padding-top:2px}.hero h1{margin:8px 0 8px;font-size:34px;line-height:1.05;color:var(--gold-soft);font-family:"Cairo","Segoe UI",Arial,sans-serif;font-weight:800}.hero p{margin:0 auto;max-width:930px;font-size:12.8px;line-height:1.68;font-weight:500}
-.meta-row,.cards-grid,.tasks-grid,.summary-grid,.two-col{display:grid;gap:9px}
-.meta-row{grid-template-columns:repeat(4,1fr);margin-top:11px}.cards-grid{grid-template-columns:repeat(3,1fr);margin-top:10px}.tasks-grid{grid-template-columns:repeat(2,1fr);margin-top:10px}.summary-grid{grid-template-columns:repeat(2,1fr);margin-top:10px}.two-col{grid-template-columns:1.08fr .92fr; margin-top:11px}
-.meta-chip,.card,.green-card,.summary-card,.task-card,.chart-card,.total-box,.closing-box{break-inside:avoid;page-break-inside:avoid}
-.meta-chip{border:1px solid rgba(215,180,99,.10);border-radius:999px;padding:8px 9px;text-align:center;font-size:11.2px;background:rgba(255,255,255,.02);font-weight:600;line-height:1.25}
-.card,.green-card,.summary-card,.task-card,.closing-box{border-radius:18px;border:1px solid rgba(215,180,99,.10);padding:11px;background:radial-gradient(circle at top center, rgba(34,89,64,.18), transparent 46%),linear-gradient(180deg, rgba(11,19,33,.97) 0%, rgba(7,13,24,1) 100%)}
-.card h3,.chart-card h3,.closing-box h3{margin:0 0 5px;color:var(--gold-soft);font-family:"Cairo","Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.2;font-weight:800}
-.card p,.card li,.green-card p,.summary-card p,.task-card p,.closing-box p{margin:0;color:#ece1d0;font-size:11.4px;line-height:1.6;font-weight:500}
-.card ul{margin:7px 0 0;padding:0 17px 0 0}.card li+li{margin-top:4px}
-.green-card h4,.summary-card h4,.task-card h4{margin:0 0 5px;color:#fff;font-family:"Cairo","Segoe UI",Arial,sans-serif;font-size:14.7px;line-height:1.2;font-weight:800}
-strong{color:var(--gold-soft);font-weight:800}
-.stat-stack{display:grid;gap:8px}.stat-box{border:1px solid rgba(215,180,99,.10);border-radius:16px;padding:10px;background:rgba(255,255,255,.02)}.stat-box .num{display:block;color:var(--gold-soft);font-family:"Cairo","Segoe UI",Arial,sans-serif;font-size:21px;font-weight:800;line-height:1;margin-bottom:4px}.stat-box .label{display:block;color:#fff;font-size:12.2px;font-weight:700;margin-bottom:2px}.stat-box .desc{color:#ddd0bc;font-size:10.8px;line-height:1.48;font-weight:500}
-.section-head{display:flex;align-items:center;gap:8px;margin:11px 0 6px}.section-title-wrap{display:flex;align-items:center;gap:8px}.section-index{width:34px;height:34px;border-radius:50%;border:1px solid rgba(215,180,99,.22);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:11px;font-weight:800;background:rgba(255,255,255,.02);flex:0 0 auto;font-family:"Segoe UI",Arial,sans-serif}.section-label{color:#d6c7a2;font-size:11.5px;font-weight:700;line-height:1}.section-main-title{margin:0 0 5px;color:var(--gold-soft);font-family:"Cairo","Segoe UI",Arial,sans-serif;font-size:21px;line-height:1.14;font-weight:800}.section-text{margin:0 0 7px;color:#efe5d5;font-size:12px;line-height:1.64;font-weight:500}
-.chart-card{margin-top:8px;border-radius:20px;border:1px solid rgba(215,180,99,.10);padding:11px 11px 9px;background:radial-gradient(circle at top center, rgba(34,81,60,.19), transparent 44%),linear-gradient(180deg, rgba(10,18,31,.98) 0%, rgba(6,12,24,.99) 100%)}
-.chart-card p{margin:0 0 7px;color:#eadfcf;font-size:11.3px;line-height:1.55;font-weight:500}.chart-note{color:#afa491;font-size:10.2px;line-height:1.5;font-weight:500;margin-top:4px}
-.total-box{margin-top:13px;border-radius:22px;border:1px solid rgba(215,180,99,.16);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:radial-gradient(circle at top left, rgba(215,180,99,.08), transparent 34%),linear-gradient(180deg, rgba(15,27,45,.98) 0%, rgba(8,15,27,1) 100%)}
-.total-box h3{margin:0 0 4px;color:#fff;font-family:"Cairo","Segoe UI",Arial,sans-serif;font-size:20px;font-weight:800}.total-box p{margin:0;color:#e6dac7;font-size:11.5px;line-height:1.58;font-weight:500;max-width:430px}.total-price{text-align:left;white-space:nowrap;color:var(--gold-soft);font-family:"Cairo","Segoe UI",Arial,sans-serif;font-size:32px;line-height:1;font-weight:800}.old-price{display:block;color:#bba587;font-size:15px;text-decoration:line-through;margin-bottom:8px;font-weight:700}.after-label{display:block;color:#b9ab8f;font-size:10px;margin-top:6px;font-weight:600;letter-spacing:.2px}
-svg text{font-family:"Cairo","Segoe UI",Arial,sans-serif}
-@media screen{body{padding:20px 0}.page{margin-bottom:18px;box-shadow:0 20px 44px rgba(0,0,0,.28)}}
-@media print{html,body{width:var(--page-w);background:#08111d}body{padding:0}.page{margin:0;box-shadow:none}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>عرض خدمات مطعم ملوخية</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper-w: 194mm;
+      --paper-h: 281mm;
+      --bg1: #04101b;
+      --bg2: #08192a;
+      --bg3: #030811;
+      --gold: #d9b464;
+      --gold-soft: #efd79a;
+      --text: #f4ecdf;
+      --muted: #d8ccb7;
+      --line: rgba(217,180,100,.12);
+      --card: rgba(255,255,255,.02);
+      --green: rgba(43,103,76,.18);
+    }
+
+    @page {
+      size: A4;
+      margin: 8mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Cairo", "Segoe UI", Arial, sans-serif;
+      background: #09111a;
+      color: var(--text);
+    }
+
+    body {
+      padding: 18px 0;
+    }
+
+    .page {
+      width: var(--paper-w);
+      min-height: var(--paper-h);
+      margin: 0 auto 18px;
+      padding: 0;
+      background:
+        radial-gradient(circle at top right, rgba(217,180,100,.08), transparent 24%),
+        radial-gradient(circle at bottom left, rgba(39,94,69,.12), transparent 30%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 42%, var(--bg3) 100%);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 20px 44px rgba(0,0,0,.26);
+      page-break-after: always;
+      break-after: page;
+      overflow: hidden;
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    .shell {
+      min-height: var(--paper-h);
+      padding: 10mm 9mm 8mm;
+      overflow: hidden;
+    }
+
+    .top-line {
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #735624 0%, var(--gold) 50%, #735624 100%);
+      margin-bottom: 8px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 9px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(217,180,100,.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold-soft);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(217,180,100,.24);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(255,255,255,.02);
+      flex: 0 0 auto;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(217,180,100,.16);
+      color: var(--gold-soft);
+      background: rgba(255,255,255,.02);
+      font-size: 10.5px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      margin: 10px 0 8px;
+      color: var(--gold-soft);
+      font-size: 30px;
+      line-height: 1.08;
+      font-weight: 800;
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 100%;
+      color: var(--text);
+      font-size: 12.5px;
+      line-height: 1.75;
+      font-weight: 500;
+    }
+
+    .meta-row,
+    .stats-grid,
+    .cards-3,
+    .cards-2,
+    .tasks-grid,
+    .price-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .meta-row { grid-template-columns: repeat(4, 1fr); margin-top: 10px; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); margin-top: 10px; }
+    .cards-3 { grid-template-columns: repeat(3, 1fr); margin-top: 10px; }
+    .cards-2 { grid-template-columns: repeat(2, 1fr); margin-top: 10px; }
+    .tasks-grid { grid-template-columns: repeat(2, 1fr); margin-top: 10px; }
+    .price-grid { grid-template-columns: repeat(3, 1fr); margin-top: 10px; }
+
+    .meta-chip,
+    .stat-box,
+    .card,
+    .task,
+    .price-card,
+    .chart-card,
+    .total-box,
+    .note-box {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .meta-chip {
+      border: 1px solid rgba(217,180,100,.10);
+      border-radius: 999px;
+      padding: 8px 9px;
+      text-align: center;
+      font-size: 11px;
+      line-height: 1.25;
+      color: #efe5d5;
+      background: rgba(255,255,255,.02);
+      font-weight: 600;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0 6px;
+    }
+
+    .section-index {
+      width: 31px;
+      height: 31px;
+      border-radius: 50%;
+      border: 1px solid rgba(217,180,100,.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 10.5px;
+      font-weight: 800;
+      background: rgba(255,255,255,.02);
+      flex: 0 0 auto;
+    }
+
+    .section-label {
+      color: #d6c7a2;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      margin: 0 0 6px;
+      color: var(--gold-soft);
+      font-size: 20px;
+      line-height: 1.15;
+      font-weight: 800;
+    }
+
+    .section-text {
+      margin: 0;
+      color: #efe4d2;
+      font-size: 12px;
+      line-height: 1.72;
+      font-weight: 500;
+    }
+
+    .stat-box,
+    .card,
+    .task,
+    .price-card,
+    .note-box {
+      border: 1px solid rgba(217,180,100,.10);
+      border-radius: 16px;
+      padding: 10px 11px;
+      background:
+        radial-gradient(circle at top center, rgba(34,89,64,.17), transparent 48%),
+        linear-gradient(180deg, rgba(11,19,33,.97) 0%, rgba(7,13,24,1) 100%);
+      box-shadow: inset 0 0 20px rgba(65,130,94,.05);
+    }
+
+    .stat-box .num {
+      display: block;
+      color: var(--gold-soft);
+      font-size: 21px;
+      line-height: 1;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .stat-box .label {
+      display: block;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .stat-box .desc,
+    .card p,
+    .task p,
+    .price-card p,
+    .note-box p {
+      margin: 0;
+      color: #e8dece;
+      font-size: 11.1px;
+      line-height: 1.62;
+      font-weight: 500;
+    }
+
+    .card h4,
+    .task h4,
+    .price-card h4,
+    .note-box h4 {
+      margin: 0 0 4px;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.24;
+      font-weight: 800;
+    }
+
+    .card .tag,
+    .task .tag,
+    .price-card .tag,
+    .note-box .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(217,180,100,.13);
+      color: var(--gold);
+      font-size: 9.6px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .card ul {
+      margin: 6px 0 0;
+      padding: 0 17px 0 0;
+      color: #e8dece;
+      font-size: 11.1px;
+      line-height: 1.62;
+      font-weight: 500;
+    }
+
+    .card li + li {
+      margin-top: 3px;
+    }
+
+    strong {
+      color: var(--gold-soft);
+      font-weight: 800;
+    }
+
+    .chart-card {
+      margin-top: 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(217,180,100,.10);
+      padding: 10px 11px 9px;
+      background:
+        radial-gradient(circle at top center, rgba(34,81,60,.19), transparent 44%),
+        linear-gradient(180deg, rgba(10,18,31,.98) 0%, rgba(6,12,24,.99) 100%);
+    }
+
+    .chart-card h4 {
+      margin: 0 0 4px;
+      color: var(--gold-soft);
+      font-size: 16px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .chart-card p {
+      margin: 0 0 8px;
+      color: #eadfcf;
+      font-size: 11.3px;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .chart-note {
+      color: #afa491;
+      font-size: 10px;
+      line-height: 1.55;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .total-box {
+      margin-top: 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(217,180,100,.16);
+      padding: 14px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background:
+        radial-gradient(circle at top left, rgba(217,180,100,.08), transparent 34%),
+        linear-gradient(180deg, rgba(15,27,45,.98) 0%, rgba(8,15,27,1) 100%);
+    }
+
+    .total-box h3 {
+      margin: 0 0 4px;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .total-box p {
+      margin: 0;
+      color: #e6dac7;
+      font-size: 11.5px;
+      line-height: 1.6;
+      font-weight: 500;
+      max-width: 420px;
+    }
+
+    .total-price {
+      text-align: left;
+      color: var(--gold-soft);
+      font-size: 31px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .old-price {
+      display: block;
+      color: #bba587;
+      font-size: 15px;
+      text-decoration: line-through;
+      margin-bottom: 7px;
+      font-weight: 700;
+    }
+
+    .after-label {
+      display: block;
+      color: #b9ab8f;
+      font-size: 10px;
+      margin-top: 5px;
+      font-weight: 600;
+    }
+
+    svg {
+      width: 100%;
+      height: 150px;
+      display: block;
+    }
+
+    svg text {
+      font-family: "Cairo", "Segoe UI", Arial, sans-serif;
+    }
+
+    @media print {
+      html, body {
+        background: #fff;
+      }
+
+      body {
+        padding: 0;
+      }
+
+      .page {
+        width: auto;
+        min-height: auto;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .shell {
+        min-height: auto;
+        padding: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-<section class="page"><div class="shell"><div class="top-line"></div><div class="nav"><div class="brand"><div class="logo">EC</div><div>Elite Consultant</div></div><div class="pill">عرض تسويقي لمطعم ملوخية</div></div><div class="hero"><div class="pill">خطة نمو شهرية واضحة</div><h1>شكل التحسن المتوقع<br>لما المحتوى يشتغل صح</h1><p>الهدف من العرض ده إن مطعم ملوخية يبان بصورة أقوى، ويحجز مكان أوضح في ذهن العميل، ويبقى حضوره على السوشيال ميديا مرتب ومقنع ويخدم البيع الفعلي. المحتوى هنا مش مجرد نشر، لكنه أداة تخلي المطعم يتشاف أكتر ويتاخد بجدية أكبر.</p><div class="meta-row"><div class="meta-chip">السوق: الرياض</div><div class="meta-chip">نوع النشاط: مطعم مصري</div><div class="meta-chip">النطاق: 12 ريلز + 12 بوست</div><div class="meta-chip">نوع العرض: شهري</div></div></div><div class="two-col"><div class="card"><h3>إيه اللي بيتغير لما المحتوى يبقى منظم؟</h3><p>أول فرق بيظهر إن الصفحة تبطل شكلها عشوائي، وتبدأ تاخد شخصية ثابتة ومقنعة. العميل لما يدخل الحساب يلاقي صورة مطعم نظيفة، رسائل واضحة، وأطباق طالعة بشكل يشهي ويعلق في ذهنه. ده بيخلي الصفحة أقرب لقرار الطلب بدل ما تكون مجرد صور متفرقة.</p><ul><li><strong>ثبات في الحضور</strong> يخلي المطعم حاضر باستمرار قدام الناس.</li><li><strong>شكل أقوى للبراند</strong> يدي إحساس بالنظافة والجودة.</li><li><strong>محتوى قابل للانتشار</strong> خصوصًا في الريلز مع الأكل.</li><li><strong>رسائل أوضح</strong> تساعد العميل يفهم قيمة المطعم بسرعة.</li></ul></div><div class="stat-stack"><div class="stat-box"><span class="num">01</span><span class="label">وصول أعلى</span><span class="desc">المحتوى المنتظم يوسع فرص الظهور قدام ناس جديدة بشكل مستمر.</span></div><div class="stat-box"><span class="num">02</span><span class="label">ثقة أكبر</span><span class="desc">الشكل المنظم يوصل إحساس إن المطعم مهتم بالتفاصيل والجودة.</span></div><div class="stat-box"><span class="num">03</span><span class="label">طلب أقرب</span><span class="desc">المحتوى الشهي والواضح يقرب العميل من قرار التجربة والطلب.</span></div></div></div><div class="section-head"><div class="section-title-wrap"><div class="section-index">01</div><div class="section-label">نمو الظهور والاهتمام</div></div></div><h2 class="section-main-title">نمو متوقع شهر بعد شهر في الوصول والاهتمام</h2><p class="section-text">النمو الحقيقي هنا مش قفزة شكلية. الفكرة إن الحضور يزيد بشكل ثابت، ويترجم إلى وصول أعلى، تفاعل أقوى، وثقة أكبر في الصفحة شهر بعد شهر.</p><div class="chart-card"><h3>مسار النمو المتوقع</h3><p>الخط البياني ده يوضح شكل التحسن المتوقع مع انتظام النشر، وجودة التنفيذ، ووضوح الرسائل البصرية والنصية.</p><svg viewBox="0 0 760 230" width="100%" height="158" xmlns="http://www.w3.org/2000/svg" aria-label="Growth chart"><defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d7b463" stop-opacity=".28"/><stop offset="100%" stop-color="#d7b463" stop-opacity=".03"/></linearGradient><linearGradient id="lineStroke" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e0c27e"/><stop offset="50%" stop-color="#f1d89b"/><stop offset="100%" stop-color="#d4a84c"/></linearGradient></defs><line x1="72" y1="182" x2="710" y2="182" stroke="#546171" stroke-width="1.2"/><line x1="72" y1="146" x2="710" y2="146" stroke="#293342" stroke-width="1"/><line x1="72" y1="110" x2="710" y2="110" stroke="#293342" stroke-width="1"/><line x1="72" y1="74" x2="710" y2="74" stroke="#293342" stroke-width="1"/><line x1="72" y1="38" x2="710" y2="38" stroke="#293342" stroke-width="1"/><line x1="72" y1="30" x2="72" y2="182" stroke="#546171" stroke-width="1.2"/><path d="M100 168 C140 160,165 156,205 150 S270 136,310 128 S370 113,410 103 S470 84,515 72 S580 54,620 42 L620 182 L100 182 Z" fill="url(#areaFill)"/><path d="M100 168 C140 160,165 156,205 150 S270 136,310 128 S370 113,410 103 S470 84,515 72 S580 54,620 42" fill="none" stroke="url(#lineStroke)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><g fill="#f1d89b" stroke="#0a111c" stroke-width="2"><circle cx="100" cy="168" r="6"/><circle cx="205" cy="150" r="6"/><circle cx="310" cy="128" r="6"/><circle cx="410" cy="103" r="6"/><circle cx="515" cy="72" r="6"/><circle cx="620" cy="42" r="6"/></g><g font-size="10.6" fill="#aeb6c0" font-weight="600"><text x="44" y="186">0</text><text x="30" y="150">5k</text><text x="24" y="114">10k</text><text x="24" y="78">15k</text><text x="24" y="42">20k</text></g><g font-size="10.8" fill="#efe5d5" font-weight="600"><text x="100" y="203" text-anchor="middle">شهر 1</text><text x="205" y="203" text-anchor="middle">شهر 2</text><text x="310" y="203" text-anchor="middle">شهر 3</text><text x="410" y="203" text-anchor="middle">شهر 4</text><text x="515" y="203" text-anchor="middle">شهر 5</text><text x="620" y="203" text-anchor="middle">شهر 6</text></g><g><g transform="translate(80 140)"><rect width="40" height="18" rx="9" fill="#d7b463"/><text x="20" y="12.4" text-anchor="middle" font-size="9.6" font-weight="800" fill="#07101c">3.1k</text></g><g transform="translate(185 122)"><rect width="40" height="18" rx="9" fill="#d7b463"/><text x="20" y="12.4" text-anchor="middle" font-size="9.6" font-weight="800" fill="#07101c">5.0k</text></g><g transform="translate(290 100)"><rect width="40" height="18" rx="9" fill="#d7b463"/><text x="20" y="12.4" text-anchor="middle" font-size="9.6" font-weight="800" fill="#07101c">8.0k</text></g><g transform="translate(388 76)"><rect width="44" height="18" rx="9" fill="#d7b463"/><text x="22" y="12.4" text-anchor="middle" font-size="9.6" font-weight="800" fill="#07101c">11.8k</text></g><g transform="translate(493 46)"><rect width="44" height="18" rx="9" fill="#d7b463"/><text x="22" y="12.4" text-anchor="middle" font-size="9.6" font-weight="800" fill="#07101c">15.6k</text></g><g transform="translate(598 16)"><rect width="44" height="18" rx="9" fill="#d7b463"/><text x="22" y="12.4" text-anchor="middle" font-size="9.6" font-weight="800" fill="#07101c">19.5k</text></g></g></svg><div class="chart-note">المسار الصاعد هنا مبني على انتظام المحتوى وتحسن صورة الحساب ووجود رسالة واضحة تخلي المطعم يعلق أكثر في ذهن الناس.</div></div></div></section>
-<section class="page"><div class="shell"><div class="top-line"></div><div class="nav"><div class="brand"><div class="logo">EC</div><div>Elite Consultant</div></div><div class="pill">كيف المهام تخدم المطعم</div></div><div class="section-head" style="margin-top:2px"><div class="section-title-wrap"><div class="section-index">02</div><div class="section-label">الأثر العملي للباقة</div></div></div><h2 class="section-main-title">كل مهمة هنا بتقرب مطعم ملوخية من زباين أكثر</h2><p class="section-text">قيمة الباقة مش في عدد القطع فقط. قيمتها الحقيقية إن كل جزء فيها بيخدم هدف واضح: يجذب الانتباه، يثبت صورة المطعم، ويخلي العميل ياخد قرار أسرع.</p><div class="cards-grid"><div class="green-card"><div class="card-pill">خطة المحتوى</div><h4>حضور أوضح وثبات أقوى</h4><p>لما الحساب يمشي بخطة واضحة، المطعم يبقى ظاهر بهوية أقوى. <strong>وده يخلي الصفحة شكلها منظم وواثق</strong>.</p></div><div class="green-card"><div class="card-pill">الريلز الشهرية</div><h4>انتشار أسرع ووصول أوسع</h4><p>الريلز من أقوى أدوات لفت الانتباه، خصوصًا مع الطعام. <strong>كل فيديو قوي يفتح باب لناس جديدة</strong>.</p></div><div class="green-card"><div class="card-pill">البوستات الثابتة</div><h4>صورة مطعم مريحة ومقنعة</h4><p>البوستات تثبت شكل البراند والأطباق والعروض. <strong>وده يخلي الصفحة أوضح وأكثر ثقة</strong>.</p></div><div class="green-card"><div class="card-pill">الكابشن والسكريبت</div><h4>رسالة تدخل بسرعة</h4><p>الصورة تجذب العين، لكن الكلام الصح يكمل الإقناع. <strong>لما الرسالة تبقى بسيطة وشهية</strong>.</p></div><div class="green-card"><div class="card-pill">التنسيق والمتابعة</div><h4>شغل مرتب يبان في نتيجته</h4><p>التنظيم يمنع اللخبطة والتأخير، ويخلي كل حاجة تطلع في وقتها. <strong>وده يحافظ على حضور مستمر</strong>.</p></div><div class="green-card"><div class="card-pill">ضبط الجودة</div><h4>تحسن مستمر من شهر للتاني</h4><p>المراجعة المستمرة تمنع ضعف المستوى أو التكرار. <strong>كل شهر يبني على اللي قبله</strong>.</p></div></div><div class="section-head"><div class="section-title-wrap"><div class="section-index">03</div><div class="section-label">الأثر النهائي</div></div></div><h2 class="section-main-title">النتيجة المتوقعة على صورة المطعم وقرار العميل</h2><div class="summary-grid"><div class="summary-card"><div class="card-pill">على البراند</div><h4>شكل أقوى يليق بالمطعم</h4><p>لما التصوير، الكتابة، والتنظيم يطلعوا في نفس المستوى، الصفحة تبدأ تعكس جودة أعلى ويبان إن المكان محترم ومرتب.</p></div><div class="summary-card"><div class="card-pill">على العميل</div><h4>قرار أسرع وتجربة أقرب</h4><p>الحساب القوي يخلي العميل يقتنع أسرع، ويحس إن الأكل يستحق التجربة، وده يرفع احتمالية الرسائل والطلبات والزيارات.</p></div></div><div class="closing-box" style="margin-top:12px"><h3>الخلاصة</h3><p>المطلوب هنا مش مجرد محتوى شكله جميل. المطلوب حضور يخلّي مطعم ملوخية يبقى أوضح، أرسخ، وأقرب للطلب. وكل مهمة في الباقة معمول حسابها علشان تخدم الهدف ده بشكل مباشر.</p></div></div></section>
-<section class="page"><div class="shell"><div class="top-line"></div><div class="nav"><div class="brand"><div class="logo">EC</div><div>Elite Consultant</div></div><div class="pill">المهام والإجمالي الشهري</div></div><div class="section-head" style="margin-top:2px"><div class="section-title-wrap"><div class="section-index">04</div><div class="section-label">تفصيل الباقة</div></div></div><h2 class="section-main-title">المهام المشمولة في الخدمة الشهرية</h2><p class="section-text">الباقة معمولة بحيث تخدم المطعم من أول الفكرة لحد خروج المحتوى بشكل منظم وواضح ومحترف. كل عنصر هنا له دور مباشر في تحسين الصورة العامة ورفع فرص الجذب والطلب.</p><div class="tasks-grid"><div class="task-card"><div class="card-pill">مهمة 01</div><h4>خطة محتوى شهرية</h4><p>اتجاه واضح للشهر كله بدل النشر العشوائي، مع توزيع المحتوى بشكل يخدم الصورة العامة للمطعم.</p></div><div class="task-card"><div class="card-pill">مهمة 02</div><h4>12 ريلز شهريًا</h4><p>محتوى فيديو يشد الانتباه بسرعة ويزود فرص الوصول والانتشار قدام جمهور أوسع.</p></div><div class="task-card"><div class="card-pill">مهمة 03</div><h4>12 بوست ثابت شهريًا</h4><p>محتوى يدعم شكل البراند، يوضح الأطباق، ويقوي صورة الصفحة عند أي عميل يدخل الحساب.</p></div><div class="task-card"><div class="card-pill">مهمة 04</div><h4>أفكار وسكريبتات وكابشن</h4><p>صياغة الكلام بشكل بسيط وشهي ومقنع، يخلي الرسالة واضحة وسهلة الاستقبال.</p></div><div class="task-card"><div class="card-pill">مهمة 05</div><h4>إدارة الحساب والتنسيق</h4><p>تنظيم التنفيذ والمتابعة بين الأطراف المختلفة علشان الشغل يطلع ثابت ومرتب.</p></div><div class="task-card"><div class="card-pill">مهمة 06</div><h4>إدارة المشروع وضبط الجودة</h4><p>مراجعة ومتابعة مستمرة لضمان ثبات المستوى وجودة المخرجات طوال الشهر.</p></div></div><div class="total-box"><div><h3>السعر بعد الخصم</h3><p>عرض خاص لمطعم ملوخية على الباقة الشهرية الكاملة، شامل التخطيط، المحتوى، المتابعة، وإدارة التنفيذ على مدار الشهر.</p></div><div class="total-price"><span class="old-price">السعر الأصلي: 10,000 SAR</span>6,500 SAR<span class="after-label">AFTER DISCOUNT</span></div></div><div class="summary-grid" style="grid-template-columns:repeat(3,1fr);margin-top:12px"><div class="summary-card"><div class="card-pill">القيمة البصرية</div><h4>محتوى يليق باسم المطعم</h4><p>الحساب يطلع بصورة محترمة وشهية وثابتة على مدار الشهر.</p></div><div class="summary-card"><div class="card-pill">القيمة التسويقية</div><h4>ظهور أقوى وقرار أسرع</h4><p>كل جزء في الباقة معمول علشان يخدم لفت الانتباه وتقريب العميل من التجربة.</p></div><div class="summary-card"><div class="card-pill">القيمة التشغيلية</div><h4>شغل منظم ومستمر</h4><p>وجود خطة ومتابعة وتنفيذ منتظم يقلل العشوائية ويحافظ على مستوى ثابت.</p></div></div><div class="closing-box" style="margin-top:12px"><h3>رسالة أخيرة</h3><p>العرض ده معمول علشان يدي مطعم ملوخية حضور أقوى يبان من أول نظرة، ويخلي الحساب أداة حقيقية تجذب الناس وتثبت الاسم.</p></div></div></section>
+
+  <!-- PAGE 1 -->
+  <section class="page">
+    <div class="shell">
+      <div class="top-line"></div>
+
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">EC</div>
+          <div>Elite Consultant</div>
+        </div>
+        <div class="pill">عرض تسويقي لمطعم ملوخية</div>
+      </div>
+
+      <div class="hero">
+        <div class="pill">خطة نمو شهرية واضحة</div>
+        <h1>شكل التحسن المتوقع<br>لما المحتوى يشتغل صح</h1>
+        <p>
+          الهدف من العرض ده إن مطعم ملوخية يبان بصورة أقوى، ويحجز مكان أوضح في ذهن العميل، ويبقى حضوره على السوشيال ميديا
+          مرتب ومقنع ويخدم البيع الفعلي. المحتوى هنا مش مجرد نشر. هو أداة تخلي المطعم يتشاف أكتر، يتحب أكتر، ويتاخد بجدية أكبر.
+        </p>
+
+        <div class="meta-row">
+          <div class="meta-chip">السوق: الرياض</div>
+          <div class="meta-chip">نوع النشاط: مطعم مصري</div>
+          <div class="meta-chip">النطاق: 12 ريلز + 12 بوست</div>
+          <div class="meta-chip">نوع العرض: شهري</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <div class="section-index">01</div>
+        <div class="section-label">ليه المحتوى المنظم يصنع فرق</div>
+      </div>
+      <h2 class="section-title">إيه اللي بيتغير لما الحساب يبقى شغال باحتراف؟</h2>
+      <p class="section-text">
+        أول فرق بيظهر إن الصفحة تبطل شكلها عشوائي، وتبدأ تاخد شخصية ثابتة ومقنعة. العميل لما يدخل الحساب يلاقي صورة مطعم نظيفة، رسائل واضحة، وأطباق طالعة بشكل يشهي ويعلق في ذهنه.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span class="num">01</span>
+          <span class="label">وصول أعلى</span>
+          <span class="desc">المحتوى المنتظم يوسع فرص الظهور قدام ناس جديدة بشكل مستمر.</span>
+        </div>
+        <div class="stat-box">
+          <span class="num">02</span>
+          <span class="label">ثقة أكبر</span>
+          <span class="desc">الشكل المنظم يوصل إحساس إن المطعم مهتم بالتفاصيل والجودة.</span>
+        </div>
+        <div class="stat-box">
+          <span class="num">03</span>
+          <span class="label">طلب أقرب</span>
+          <span class="desc">المحتوى الشهي والواضح يقرب العميل من قرار التجربة والطلب.</span>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top:10px;">
+        <div class="tag">التحسن المتوقع</div>
+        <h4>ليه ده مهم للمطعم؟</h4>
+        <p>
+          لأن العميل بياخد انطباعه الأول بسرعة جدًا. الحساب القوي يخليه يشوف مطعم ملوخية كاسم مرتب، واضح، ويستحق التجربة.
+          ومع التكرار والاستمرارية، الصفحة تتحول من مجرد وجود عادي إلى حضور فعلي له تأثير على القرار.
+        </p>
+      </div>
+
+      <div class="section-head">
+        <div class="section-index">02</div>
+        <div class="section-label">نمو الظهور والاهتمام</div>
+      </div>
+      <h2 class="section-title">نمو متوقع شهر بعد شهر في الوصول والاهتمام</h2>
+      <p class="section-text">
+        النمو الحقيقي هنا مش قفزة شكلية. الفكرة إن الحضور يزيد بشكل ثابت، ويترجم إلى وصول أعلى، تفاعل أقوى، وثقة أكبر في الصفحة شهر بعد شهر.
+      </p>
+
+      <div class="chart-card">
+        <h4>مسار النمو المتوقع</h4>
+        <p>الخط البياني يوضح شكل التحسن المتوقع مع انتظام النشر وجودة التنفيذ ووضوح الرسالة.</p>
+
+        <svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" aria-label="Growth chart">
+          <defs>
+            <linearGradient id="areaFillSafe" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#d7b463" stop-opacity=".28"/>
+              <stop offset="100%" stop-color="#d7b463" stop-opacity=".03"/>
+            </linearGradient>
+            <linearGradient id="lineStrokeSafe" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#e0c27e"/>
+              <stop offset="50%" stop-color="#f1d89b"/>
+              <stop offset="100%" stop-color="#d4a84c"/>
+            </linearGradient>
+          </defs>
+
+          <line x1="72" y1="184" x2="710" y2="184" stroke="#546171" stroke-width="1.2"/>
+          <line x1="72" y1="150" x2="710" y2="150" stroke="#293342" stroke-width="1"/>
+          <line x1="72" y1="116" x2="710" y2="116" stroke="#293342" stroke-width="1"/>
+          <line x1="72" y1="82" x2="710" y2="82" stroke="#293342" stroke-width="1"/>
+          <line x1="72" y1="48" x2="710" y2="48" stroke="#293342" stroke-width="1"/>
+          <line x1="72" y1="40" x2="72" y2="184" stroke="#546171" stroke-width="1.2"/>
+
+          <path d="M100 170 C140 163,165 159,205 153 S270 140,310 132 S370 116,410 107 S470 88,515 77 S580 59,620 50 L620 184 L100 184 Z" fill="url(#areaFillSafe)"/>
+          <path d="M100 170 C140 163,165 159,205 153 S270 140,310 132 S370 116,410 107 S470 88,515 77 S580 59,620 50" fill="none" stroke="url(#lineStrokeSafe)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+          <g fill="#f1d89b" stroke="#0a111c" stroke-width="2">
+            <circle cx="100" cy="170" r="6"/>
+            <circle cx="205" cy="153" r="6"/>
+            <circle cx="310" cy="132" r="6"/>
+            <circle cx="410" cy="107" r="6"/>
+            <circle cx="515" cy="77" r="6"/>
+            <circle cx="620" cy="50" r="6"/>
+          </g>
+
+          <g font-size="11" fill="#aeb6c0" font-weight="600">
+            <text x="44" y="188">0</text>
+            <text x="30" y="154">5k</text>
+            <text x="24" y="120">10k</text>
+            <text x="24" y="86">15k</text>
+            <text x="24" y="52">20k</text>
+          </g>
+
+          <g font-size="11" fill="#efe5d5" font-weight="600">
+            <text x="100" y="208" text-anchor="middle">شهر 1</text>
+            <text x="205" y="208" text-anchor="middle">شهر 2</text>
+            <text x="310" y="208" text-anchor="middle">شهر 3</text>
+            <text x="410" y="208" text-anchor="middle">شهر 4</text>
+            <text x="515" y="208" text-anchor="middle">شهر 5</text>
+            <text x="620" y="208" text-anchor="middle">شهر 6</text>
+          </g>
+        </svg>
+
+        <div class="chart-note">المسار الصاعد هنا مبني على انتظام المحتوى وتحسن صورة الحساب ووجود رسالة واضحة.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page">
+    <div class="shell">
+      <div class="top-line"></div>
+
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">EC</div>
+          <div>Elite Consultant</div>
+        </div>
+        <div class="pill">كيف المهام تخدم المطعم</div>
+      </div>
+
+      <div class="section-head">
+        <div class="section-index">03</div>
+        <div class="section-label">الأثر العملي للباقة</div>
+      </div>
+      <h2 class="section-title">كل مهمة هنا بتقرب مطعم ملوخية من زباين أكثر</h2>
+      <p class="section-text">
+        قيمة الباقة مش في عدد القطع فقط. قيمتها الحقيقية إن كل جزء فيها بيخدم هدف واضح: يجذب الانتباه، يثبت صورة المطعم، ويخلي العميل ياخد قرار أسرع.
+      </p>
+
+      <div class="cards-3">
+        <div class="card">
+          <div class="tag">خطة المحتوى</div>
+          <h4>حضور أوضح وثبات أقوى</h4>
+          <p>لما الحساب يمشي بخطة واضحة، المطعم يبقى ظاهر بهوية أقوى. <strong>وده يخلي الصفحة شكلها منظم وواثق</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="tag">الريلز الشهرية</div>
+          <h4>انتشار أسرع ووصول أوسع</h4>
+          <p>الريلز من أقوى أدوات لفت الانتباه، خصوصًا مع الطعام. <strong>كل فيديو قوي يفتح باب لناس جديدة</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="tag">البوستات الثابتة</div>
+          <h4>صورة مطعم مريحة ومقنعة</h4>
+          <p>البوستات تثبت شكل البراند والأطباق والعروض. <strong>وده يخلي الصفحة أوضح وأكثر ثقة</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="tag">الكابشن والسكريبت</div>
+          <h4>رسالة تدخل بسرعة</h4>
+          <p>الصورة تجذب العين، لكن الكلام الصح يكمل الإقناع. <strong>لما الرسالة تبقى بسيطة وشهية</strong> المطعم يبقى أقرب.</p>
+        </div>
+        <div class="card">
+          <div class="tag">التنسيق والمتابعة</div>
+          <h4>شغل مرتب يبان في نتيجته</h4>
+          <p>التنظيم يمنع اللخبطة والتأخير، ويخلي كل حاجة تطلع في وقتها. <strong>وده يحافظ على حضور مستمر</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="tag">ضبط الجودة</div>
+          <h4>تحسن مستمر من شهر للتاني</h4>
+          <p>المراجعة المستمرة تمنع ضعف المستوى أو التكرار. <strong>كل شهر يبني على اللي قبله</strong>.</p>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <div class="section-index">04</div>
+        <div class="section-label">النتيجة المتوقعة</div>
+      </div>
+      <h2 class="section-title">إزاي ده يترجم لانطباع أقوى وقرار أسرع؟</h2>
+
+      <div class="cards-2">
+        <div class="card">
+          <div class="tag">الأثر على البراند</div>
+          <h4>شكل أقوى يليق بالمطعم</h4>
+          <p>لما التصوير، الكتابة، والتنظيم يطلعوا في نفس المستوى، الصفحة تبدأ تعكس جودة أعلى. <strong>العميل يحس إن المكان مرتب ومحترم</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="tag">الأثر على العميل</div>
+          <h4>قرار أسرع وتجربة أقرب</h4>
+          <p>الحساب القوي يخلي العميل يقتنع أسرع، ويحس إن الأكل يستحق التجربة. <strong>وده يرفع احتمالية الرسائل والطلبات</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="tag">الأثر على التفاعل</div>
+          <h4>ناس أكثر تشوف وتتفاعل</h4>
+          <p>المحتوى الشهي والواضح بيشجع على الوقوف، المشاهدة، والمشاركة. <strong>وده يدي دفعة أكبر للوصول العضوي</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="tag">الأثر على الاستمرارية</div>
+          <h4>حضور ثابت بدل ظهور متقطع</h4>
+          <p>هنا الشغل مبني على استمرارية، <strong>وده هو اللي يصنع تراكم فعلي في الذهن والنتائج</strong>.</p>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top:10px;">
+        <div class="tag">الخلاصة</div>
+        <h4>المطلوب مش مجرد محتوى شكله جميل</h4>
+        <p>
+          المطلوب حضور يخلّي مطعم ملوخية يبقى أوضح، أرسخ، وأقرب للطلب. وكل مهمة في الباقة معمول حسابها علشان تخدم الهدف ده بشكل مباشر.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section class="page">
+    <div class="shell">
+      <div class="top-line"></div>
+
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">EC</div>
+          <div>Elite Consultant</div>
+        </div>
+        <div class="pill">المهام والسعر النهائي</div>
+      </div>
+
+      <div class="section-head" style="margin-top:2px;">
+        <div class="section-index">05</div>
+        <div class="section-label">تفصيل الباقة</div>
+      </div>
+      <h2 class="section-title">المهام المشمولة في الخدمة الشهرية</h2>
+      <p class="section-text">
+        الباقة معمولة بحيث تخدم المطعم من أول الفكرة لحد خروج المحتوى بشكل منظم وواضح ومحترف. كل عنصر هنا له دور مباشر في تحسين الصورة العامة ورفع فرص الجذب والطلب.
+      </p>
+
+      <div class="tasks-grid">
+        <div class="task">
+          <div class="tag">مهمة 01</div>
+          <h4>خطة محتوى شهرية</h4>
+          <p>اتجاه واضح للشهر كله بدل النشر العشوائي، مع توزيع المحتوى بشكل يخدم الصورة العامة للمطعم.</p>
+        </div>
+        <div class="task">
+          <div class="tag">مهمة 02</div>
+          <h4>12 ريلز شهريًا</h4>
+          <p>محتوى فيديو يشد الانتباه بسرعة ويزود فرص الوصول والانتشار قدام جمهور أوسع.</p>
+        </div>
+        <div class="task">
+          <div class="tag">مهمة 03</div>
+          <h4>12 بوست ثابت شهريًا</h4>
+          <p>محتوى يدعم شكل البراند، يوضح الأطباق، ويقوي صورة الصفحة عند أي عميل يدخل الحساب.</p>
+        </div>
+        <div class="task">
+          <div class="tag">مهمة 04</div>
+          <h4>أفكار وسكريبتات وكابشن</h4>
+          <p>صياغة الكلام بشكل بسيط وشهي ومقنع، يخلي الرسالة واضحة وسهلة الاستقبال.</p>
+        </div>
+        <div class="task">
+          <div class="tag">مهمة 05</div>
+          <h4>إدارة الحساب والتنسيق</h4>
+          <p>تنظيم التنفيذ والمتابعة بين الأطراف المختلفة علشان الشغل يطلع ثابت ومرتب.</p>
+        </div>
+        <div class="task">
+          <div class="tag">مهمة 06</div>
+          <h4>إدارة المشروع وضبط الجودة</h4>
+          <p>مراجعة ومتابعة مستمرة لضمان ثبات المستوى وجودة المخرجات طوال الشهر.</p>
+        </div>
+      </div>
+
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="tag">القيمة البصرية</div>
+          <h4>محتوى يليق باسم المطعم</h4>
+          <p>المهم إن الحساب يطلع بصورة محترمة، شهية، وثابتة على مدار الشهر.</p>
+        </div>
+        <div class="price-card">
+          <div class="tag">القيمة التسويقية</div>
+          <h4>ظهور أقوى وقرار أسرع</h4>
+          <p>كل جزء في الباقة معمول علشان يخدم لفت الانتباه، وتقوية الانطباع، وتقريب العميل من التجربة.</p>
+        </div>
+        <div class="price-card">
+          <div class="tag">القيمة التشغيلية</div>
+          <h4>شغل منظم ومستمر</h4>
+          <p>وجود خطة ومتابعة وتنفيذ منتظم يقلل العشوائية ويحافظ على مستوى ثابت يبان في النتيجة.</p>
+        </div>
+      </div>
+
+      <div class="total-box">
+        <div>
+          <h3>السعر بعد الخصم</h3>
+          <p>
+            عرض خاص لمطعم ملوخية على الباقة الشهرية الكاملة، شامل التخطيط، المحتوى، المتابعة، وإدارة التنفيذ على مدار الشهر.
+          </p>
+        </div>
+        <div class="total-price">
+          <span class="old-price">السعر الأصلي: 10,000 SAR</span>
+          6,500 SAR
+          <span class="after-label">AFTER DISCOUNT</span>
+        </div>
+      </div>
+
+      <div class="note-box" style="margin-top:10px;">
+        <div class="tag">رسالة أخيرة</div>
+        <h4>ده عرض واضح ومباشر</h4>
+        <p>
+          العرض ده معمول علشان يدي مطعم ملوخية حضور أقوى يبان من أول نظرة، ويخلي الحساب أداة حقيقية تجذب الناس وتثبت الاسم، مش مجرد صفحة فيها منشورات وخلاص.
+        </p>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>
